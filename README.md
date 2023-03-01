@@ -1,6 +1,7 @@
 # General Video Portrait Editing
 
 DPE: Disentanglement of Pose and Expression for General Video Portrait Editing
+
 *Youxin Pang, Yong Zhang, Weize Quan, Yanbo Fan, Xiaodong Cun, Ying Shan, Dong-ming Yan*  
 [[Paper](https://arxiv.org/abs/2301.06281)]
 [[Project Page](https://carlyx.github.io/DPE/)]
@@ -13,3 +14,17 @@ One-shot video-driven talking face generation aims at producing a synthetic talk
 <p align="center">
     <img src=assets/framework.jpeg />
 </p> -->
+
+
+## **Citation**
+
+If you find our work useful in your research, please consider citing:
+
+```
+@article{pang2023dpe,
+  title={DPE: Disentanglement of Pose and Expression for General Video Portrait Editing},
+  author={Pang, Youxin and Zhang, Yong and Quan, Weize and Fan, Yanbo and Cun, Xiaodong and Shan, Ying and Yan, Dong-ming},
+  journal={arXiv preprint arXiv:2301.06281},
+  year={2023}
+}
+```
