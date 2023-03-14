@@ -10,11 +10,38 @@ DPE: Disentanglement of Pose and Expression for General Video Portrait Editing
 ## Abstract
 One-shot video-driven talking face generation aims at producing a synthetic talking video by transferring the facial motion from a video to an arbitrary portrait image. Head pose and facial expression are always entangled in facial motion and transferred simultaneously. However, the entanglement sets up a barrier for these methods to be used in video portrait editing directly, where it may require to modify the expression only while maintaining the pose unchanged. One challenge of decoupling pose and expression is the lack of paired data, such as the same pose but different expressions. Only a few methods attempt to tackle this challenge with the feat of 3D Morphable Models (3DMMs) for explicit disentanglement. But 3DMMs are not accurate enough to capture facial details due to the limited number of Blendshapes, which has side effects on motion transfer. In this paper, we introduce a novel self-supervised disentanglement framework to decouple pose and expression without 3DMMs and paired data, which consists of a motion editing module, a pose generator, and an expression generator. The editing module projects faces into a latent space where pose motion and expression motion can be disentangled, and the pose or expression transfer can be performed in the latent space conveniently via addition. The two generators render the modified latent codes to images, respectively. Moreover, to guarantee the disentanglement, we propose a bidirectional cyclic training strategy with well-designed constraints. Evaluations demonstrate our method can control pose or expression independently and be used for general video editing.
 
-<!-- ## Method
-<p align="center">
-    <img src=assets/framework.jpeg />
-</p> -->
+## Inference(Coming soon)
+### Expression driving
+```
+python run_demo.py 
+ --input_folder /path/to/images_dir \
+ --output_folder /path/to/experiment_dir \
+ --face exp \
+```
+  
+### Pose driving
+```
+python run_demo.py 
+ --input_folder /path/to/images_dir \
+ --output_folder /path/to/experiment_dir \
+ --face pose \
+```
 
+### Expression and pose driving
+```
+python run_demo.py 
+ --input_folder /path/to/images_dir \
+ --output_folder /path/to/experiment_dir \
+ --face both \
+```
+
+### Video editing
+```
+python run_demo_paste.py 
+ --input_folder /path/to/images_dir \
+ --output_folder /path/to/experiment_dir \
+ --face exp \
+```
 
 ## **Citation**
 
