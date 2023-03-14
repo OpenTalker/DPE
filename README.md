@@ -17,7 +17,7 @@ pip install -r requirements
 
 ## Inference
 ### Pretrained Models
-Please download our [pre-trained model](https://drive.google.com/file/d/1MO6XPlkqdH7_PGHpG8a6EtvT813ktzkj/view?usp=share_link) and put it in ./checkpoints.
+Please download our [pre-trained model](https://drive.google.com/file/d/18Bi06ewhcx-1owlJF3F_J3INlXkQ3oX2/view?usp=share_link) and put it in ./checkpoints.
 
 ### Expression driving
 ```
