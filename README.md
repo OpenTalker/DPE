@@ -55,3 +55,10 @@ If you find our work useful in your research, please consider citing:
   year={2023}
 }
 ```
+
+## Acknowledgement
+Part of the code is adapted from 
+[LIA](https://github.com/wyhsirius/LIA),
+[PIRenderer](https://github.com/RenYurui/PIRender),
+[STIT](https://github.com/rotemtzaban/STIT).
+We thank authors for their contribution to the community.
