@@ -83,7 +83,7 @@ Please download our [pre-trained model](https://drive.google.com/file/d/18Bi06ew
 
 | Model | Description
 | :--- | :----------
-|checkpoints/dpt.pt | Pre-trained model (V1).
+|checkpoints/dpe.pt | Pre-trained model (V1).
 
 </details>
 
