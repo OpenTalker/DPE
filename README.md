@@ -55,6 +55,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
 
 ## 📋 Changelog
 
+- 2023.04.30 Add some demos.
 - 2023.03.18 Support `Pose driving`，`Expression driving` and `Pose and Expression driving`.
 - 2023.03.18 Upload the pre-trained model, which is fine-tuning for expression generator.
 - 2023.03.03 Release the test code!
