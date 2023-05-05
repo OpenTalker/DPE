@@ -100,12 +100,17 @@ if __name__ == '__main__':
         print('Reading video frames...')
         resize_factor = 1
         full_frames = []
+        img_path = os.path.join('./data/full_img/',i.split('.')[0])
+        os.makedirs(img_path,exist_ok=True)
+        c = 0
         while 1:
             still_reading, frame = video_stream.read()
             if not still_reading:
                 video_stream.release()
                 break
             full_frames.append(frame)
+            cv2.imwrite(os.path.join(img_path,str(c)+'.jpg'),frame)
+            c += 1
         print ("Number of frames available for inference: "+str(len(full_frames)))
 
         face_detect(256, full_frames, i)
