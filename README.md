@@ -139,6 +139,11 @@ python run_demo.py --s_path ./data/s.mp4 \
 		--output_folder ./res
 ```
 
+#### Crop full video
+```
+python crop_video.py
+```
+
 #### Video editing
 ```
   TODO
