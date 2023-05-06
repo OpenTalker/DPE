@@ -23,6 +23,9 @@ from torch.nn import functional as F
 from torchvision import transforms
 from morphology import dilation
 from torchvision.transforms.functional import to_tensor
+from basicsr.archs.rrdbnet_arch import RRDBNet
+from realesrgan import RealESRGANer
+from GFPGAN.gfpgan import GFPGANer
 
 def load_image(filename, size):
     img = Image.open(filename).convert('RGB')
@@ -208,6 +211,15 @@ def video2imgs(videoPath):
 
     return img
 
+
+
+def GFP(img,restorer):
+    input_img = img
+    _, _, restored_img = restorer.enhance(
+        input_img, has_aligned=False, only_center_face=True, paste_back=True)
+    return cv2.cvtColor(restored_img, cv2.COLOR_BGR2RGB)
+
+
 class Demo(nn.Module):
     def __init__(self, args):
         super(Demo, self).__init__()
@@ -221,10 +233,38 @@ class Demo(nn.Module):
         self.gen.load_state_dict(weight)
         self.gen.eval()
 
+        self.transform = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5), inplace=True),
+        ])
 
         seg_model_path = './checkpoints/79999_iter.pth'
         self.segmentation_model = seg_model_2.BiSeNet(19).eval().cuda().requires_grad_(False)
         self.segmentation_model.load_state_dict(torch.load(seg_model_path))
+
+        model_en = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=2)
+        bg_upsampler = RealESRGANer(
+                scale=2,
+                model_path='https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth',
+                model=model_en,
+                tile=400,
+                tile_pad=10,
+                pre_pad=0,
+                half=True)  # need to set False in CPU mode
+
+        model_name = 'GFPGANv1.3'
+        model_path = os.path.join('./checkpoints', model_name + '.pth')
+        if not os.path.isfile(model_path):
+            model_path = os.path.join('realesrgan/weights', model_name + '.pth')
+        if not os.path.isfile(model_path):
+            raise ValueError(f'Model {model_name} does not exist.')
+
+        self.restorer = GFPGANer(
+            model_path=model_path,
+            upscale=1,
+            arch='clean',
+            channel_multiplier=2,
+            bg_upsampler=bg_upsampler)
 
         print('==> loading data')
         self.save_path = args.output_folder
@@ -254,6 +294,7 @@ class Demo(nn.Module):
         self.d_img = d
         self.full_path = args.full_path
         self.four = four
+
         self.run()
 
 
@@ -278,7 +319,8 @@ class Demo(nn.Module):
         print('==> running')
         with torch.no_grad():
             l = min(len(self.d_img),len(self.s_img))
-            for i in tqdm(range(l)):
+            # for i in tqdm(range(l)):
+            for i in tqdm(range(25)):
                 img_target = self.d_img[i]
                 img_source = self.s_img[i]
                 full_img = Image.open(os.path.join(self.full_path,str(i)+'.jpg'))
@@ -291,6 +333,13 @@ class Demo(nn.Module):
                 video_numpy = video_numpy.astype(np.uint8)[0]
                 video_numpy = cv2.cvtColor(video_numpy, cv2.COLOR_RGB2BGR)
                 out_edit.write(video_numpy)
+
+                if self.args.EN:
+                    fake = GFP(video_numpy,self.restorer)
+                    fake = self.transform(fake).unsqueeze(0)
+                # print(fake.shape)
+                # print(torch.min(fake))
+                # exit(0)
 
                 border_pixels = 50
                 inner_mask_dilation = 0
@@ -339,6 +388,7 @@ if __name__ == '__main__':
     parser.add_argument("--face", type=str, default='exp')
     parser.add_argument("--model_path", type=str, default='')
     parser.add_argument("--output_folder", type=str, default='')
+    parser.add_argument("--EN", action="store_true", help="can enhance the result") 
     args = parser.parse_args()
 
     # demo
