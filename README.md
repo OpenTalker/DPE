@@ -58,6 +58,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
 
 ## 📋 Changelog
 
+- 2023.05.06 Support `Enhancement`.
 - 2023.05.05 Support `Video editing`.
 - 2023.04.30 Add some demos.
 - 2023.03.18 Support `Pose driving`，`Expression driving` and `Pose and Expression driving`.
@@ -78,7 +79,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
   - [ ] Training code of each componments.
   - [x] Test code for video editing.
   - [ ] Integrate audio driven methods for video editing.
-  - [ ] Integrate [GFPGAN](https://github.com/TencentARC/GFPGAN) for face enhancement.
+  - [x] Integrate [GFPGAN](https://github.com/TencentARC/GFPGAN) for face enhancement.
 
 
 ## 🔮 Inference
@@ -148,13 +149,17 @@ python crop_video.py
 #### Video editing
 Before video editing, you should run ```python crop_video.py``` to process the input full video.
 For pre-trained segmentation model, you can download from [here](https://drive.google.com/file/d/1VDhGEg7q-HJO393e2tfGCotk5r-RgZHd/view?usp=share_link) and put it in ./checkpoints.
+
+(Optional) You can run ```git clone https://github.com/TencentARC/GFPGAN``` and download the pre-trained enhancement model from [here](https://github.com/TencentARC/GFPGAN) and put it in ./checkpoints. Then you can use ```--EN``` to make the result better.
+
 ```
 python run_demo_paste.py --s_path <cropped source video> \
   --d_path <driving video> \
   --box_path <txt after running crop_video.py> \
   --model_path ./checkpoints/dpe.pt \
   --face exp \
-  --output_folder ./res
+  --output_folder ./res \
+  --EN 
 ```
 
 #### Video editing for audio driving
