@@ -58,6 +58,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
 
 ## 📋 Changelog
 
+- 2023.05.26 Release code for training.
 - 2023.05.06 Support `Enhancement`.
 - 2023.05.05 Support `Video editing`.
 - 2023.04.30 Add some demos.
