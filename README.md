@@ -76,7 +76,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
   - [x] Test code for video driving.
   - [x] Some demos.
   - [ ] Gradio/Colab Demo.
-  - [ ] Training code of each componments.
+  - [x] Training code of each componments.
   - [x] Test code for video editing.
   - [ ] Integrate audio driven methods for video editing.
   - [x] Integrate [GFPGAN](https://github.com/TencentARC/GFPGAN) for face enhancement.
@@ -168,12 +168,18 @@ python run_demo_paste.py --s_path <cropped source video> \
 ```
 
 ## 🔮 Training
-Train DPE from scratch:
++ Data preprocessing.
+
+To train DPE, please follow [video-preprocessing](https://github.com/AliaksandrSiarohin/video-preprocessing)
+to download and pre-process the VoxCelebA dataset. We use the ```lmdb``` to improve I/O efficiency. 
+(Or you can rewrite the ```Class VoxDataset``` in ```dataset.py``` to load data with ```.mp4``` directly.)
+
++ Train DPE from scratch:
 ```
 python train.py --data_root <DATA_PATH>
 ```
 
-(Optional) If you want to accelerate convergence speed, you can download the pre-trained model of [LIA](https://github.com/wyhsirius/LIA) and rename it to ```vox.pt```.
++ (Optional) If you want to accelerate convergence speed, you can download the pre-trained model of [LIA](https://github.com/wyhsirius/LIA) and rename it to ```vox.pt```.
 ```
 python train.py --data_root <DATA_PATH> --resume_ckpt <model_path for vox.pt>
 ```
