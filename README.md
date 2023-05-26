@@ -167,6 +167,18 @@ python run_demo_paste.py --s_path <cropped source video> \
   TODO
 ```
 
+## 🔮 Training
+Train DPE from scratch:
+```
+python train.py --data_root <DATA_PATH>
+```
+
+(Optional) If you want to accelerate convergence speed, you can download the pre-trained model of [LIA](https://github.com/wyhsirius/LIA) and rename it to ```vox.pt```.
+```
+python train.py --data_root <DATA_PATH> --resume_ckpt <model_path for vox.pt>
+```
+
+
 ## 🛎 Citation
 
 If you find our work useful in your research, please consider citing:
