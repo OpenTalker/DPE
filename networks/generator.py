@@ -85,8 +85,53 @@ class Generator(nn.Module):
             fc.append(EqualLinear(style_dim, style_dim))
         self.mlp_exp = nn.Sequential(*fc)
 
-    def forward(self, img_source, img_drive,stage='no'):
-        if stage=='pose':
+    def forward(self, img_source, img_drive,stage='train'):
+        if stage == 'train':
+            final_output = {}
+            
+            wa, wa_t, feats, feats_t = self.enc(img_source, img_drive, h_start)
+            alpha_D = self.mlp(wa_t)
+            directions_D = self.dir(alpha_D)
+            alpha_S = self.mlp(wa)
+            directions_S = self.dir(alpha_S)
+            directions_poseD = self.mlp_pose(directions_D)
+            directions_poseS = self.mlp_pose(directions_S)
+            directions_expD = self.mlp_exp(directions_D)
+            directions_expS = self.mlp_exp(directions_S)
+
+            # forward
+            latent_poseD = wa + directions_poseD  # wa + direction
+            img_recon = self.dec_pose(latent_poseD, None, feats)
+            final_output['fake_poseB2A'] = img_recon
+            wa1, _, feats1, _ = self.enc(final_output['fake_poseB2A'], None, h_start)
+            latent_poseexpD = wa1 + directions_expD  # wa + direction
+            img_recon = self.dec_exp(latent_poseexpD, None, feats1)
+            final_output['fake_pose_expB2A'] = img_recon
+
+
+            # backward
+            latent_expS = wa_t + directions_expS  # wa + direction
+            img_recon = self.dec_exp(latent_expS, None, feats_t)
+            final_output['fake_expA2B'] = img_recon
+            wa2, _, feats2,_ = self.enc(final_output['fake_expA2B'], None, h_start)
+            latent_expposeS = wa2 + directions_poseS  # wa + direction
+            img_recon = self.dec_pose(latent_expposeS, None, feats2)
+            final_output['fake_exp_poseA2B'] = img_recon
+
+            # self rec
+            # pose
+            latent_selfpose = wa + directions_poseS  # wa + direction
+            img_recon = self.dec_pose(latent_selfpose, None, feats)
+            final_output['fake_selfpose'] = img_recon
+
+            # exp
+            latent_selfexp = wa + directions_expS  # wa + direction
+            img_recon = self.dec_exp(latent_selfexp, None, feats)
+            final_output['fake_selfexp'] = img_recon
+
+            return final_output
+            
+        elif stage=='pose':
             wa, wa_t, feats, feats_t = self.enc(img_source, img_drive, None)
 
             alpha_D = self.mlp(wa_t)
@@ -113,7 +158,7 @@ class Generator(nn.Module):
             wa1, _, feats1, _ = self.enc(img_recon, None, None)
             latent_poseexpD = wa1 + directions_expD 
             img_recon = self.dec_exp(latent_poseexpD, None, feats1)
-        else:
+        elif stage == 'exp':
             wa, wa_t, feats, feats_t = self.enc(img_source, img_drive, None)
 
             alpha_D = self.mlp(wa_t)
@@ -124,5 +169,7 @@ class Generator(nn.Module):
             latent_poseD = wa + directions_poseD  # wa + direction
 
             img_recon = self.dec_pose(latent_poseD, None, feats)
+        else:
+            print("---------------------------ERROR------------------------")
+            exit(0)
         return img_recon
-
