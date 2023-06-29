@@ -191,11 +191,13 @@ python train.py --data_root <DATA_PATH> --resume_ckpt <model_path for vox.pt>
 If you find our work useful in your research, please consider citing:
 
 ```bibtex
-@article{pang2023dpe,
-  title={DPE: Disentanglement of Pose and Expression for General Video Portrait Editing},
-  author={Pang, Youxin and Zhang, Yong and Quan, Weize and Fan, Yanbo and Cun, Xiaodong and Shan, Ying and Yan, Dong-ming},
-  journal={arXiv preprint arXiv:2301.06281},
-  year={2023}
+@InProceedings{Pang_2023_CVPR,
+    author    = {Pang, Youxin and Zhang, Yong and Quan, Weize and Fan, Yanbo and Cun, Xiaodong and Shan, Ying and Yan, Dong-Ming},
+    title     = {DPE: Disentanglement of Pose and Expression for General Video Portrait Editing},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {427-436}
 }
 ```
 
