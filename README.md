@@ -136,7 +136,7 @@ python run_demo.py --s_path ./data/s.mp4 \
 ```
 
 #### Expression and pose driving
-One driving video:
+Video driving:
 ```
 python run_demo.py --s_path ./data/s.mp4 \
  		--d_path ./data/d.mp4 \
@@ -145,9 +145,9 @@ python run_demo.py --s_path ./data/s.mp4 \
 		--output_folder ./res
 ```
 
-Two driving videos:
+One-shot driving:
 ```
-python run_demo_two.py --s_path ./data/s.mp4 \
+python run_demo_single.py --s_path ./data/s.jpg \
  		--pose_path ./data/pose.mp4 \
         --exp_path ./data/exp.mp4 \
 		--model_path ./checkpoints/dpe.pt \
