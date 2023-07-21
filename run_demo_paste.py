@@ -319,8 +319,7 @@ class Demo(nn.Module):
         print('==> running')
         with torch.no_grad():
             l = min(len(self.d_img),len(self.s_img))
-            # for i in tqdm(range(l)):
-            for i in tqdm(range(25)):
+            for i in tqdm(range(l)):
                 img_target = self.d_img[i]
                 img_source = self.s_img[i]
                 full_img = Image.open(os.path.join(self.full_path,str(i)+'.jpg'))
