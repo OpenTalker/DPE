@@ -96,14 +96,11 @@ class Demo(nn.Module):
         os.makedirs(self.save_path, exist_ok=True)
 
 
-        s_img = video2imgs(args.s_path)
         pose_img = video2imgs(args.pose_path)
         exp_img = video2imgs(args.exp_path)
 
-        s = []
-        for i in s_img:
-            img = Image.fromarray(cv2.cvtColor(i,cv2.COLOR_BGR2RGB))
-            s.append(img_preprocessing(img,256).cuda())
+        img = Image.open(args.s_path)
+        s_img = img_preprocessing(img,256).cuda()
 
         pose = []
         for i in pose_img:
@@ -115,7 +112,7 @@ class Demo(nn.Module):
             img = Image.fromarray(cv2.cvtColor(i,cv2.COLOR_BGR2RGB))
             exp.append(img_preprocessing(img,256).cuda())
 
-        self.s_img = s
+        self.s_img = s_img
         self.pose_img = pose
         self.exp_img = exp
         self.run()
@@ -133,11 +130,11 @@ class Demo(nn.Module):
 
         print('==> running')
         with torch.no_grad():
-            l = min(len(self.pose_img),len(self.s_img), len(self.exp_img))
+            l = min(len(self.pose_img), len(self.exp_img))
             for i in tqdm(range(l)):
                 img_pose = self.pose_img[i]
                 img_exp = self.exp_img[i]
-                img_source = self.s_img[i]
+                img_source = self.s_img
                 output_dict = self.gen(img_source, img_exp, 'exp')
                 output_dict = self.gen(output_dict, img_pose, 'pose')
                 fake = output_dict
@@ -165,7 +162,7 @@ if __name__ == '__main__':
     parser.add_argument("--model", type=str, default='')
     parser.add_argument("--latent_dim_style", type=int, default=512)
     parser.add_argument("--latent_dim_motion", type=int, default=20)
-    parser.add_argument("--s_path", type=str, default='./data/crop_video/1.mp4')
+    parser.add_argument("--s_path", type=str, default='./data/crop_video/1.jpg')
     parser.add_argument("--pose_path", type=str, default='./data/crop_video/4.mp4')
     parser.add_argument("--exp_path", type=str, default='./data/crop_video/4.mp4')
     parser.add_argument("--face", type=str, default='both')
