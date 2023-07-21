@@ -58,7 +58,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
 
 ## 📋 Changelog
 
-- 2023.07.21 Release code for two videos driving.
+- 2023.07.21 Release code for one-shot driving.
 - 2023.05.26 Release code for training.
 - 2023.05.06 Support `Enhancement`.
 - 2023.05.05 Support `Video editing`.
@@ -80,7 +80,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
   - [ ] Gradio/Colab Demo.
   - [x] Training code of each componments.
   - [x] Test code for video editing.
-  - [x] Test code for two videos driving.
+  - [x] Test code for one-shot driving.
   - [ ] Integrate audio driven methods for video editing.
   - [x] Integrate [GFPGAN](https://github.com/TencentARC/GFPGAN) for face enhancement.
 
