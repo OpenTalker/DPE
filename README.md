@@ -58,6 +58,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
 
 ## 📋 Changelog
 
+- 2023.07.21 Release code for two videos driving.
 - 2023.05.26 Release code for training.
 - 2023.05.06 Support `Enhancement`.
 - 2023.05.05 Support `Video editing`.
@@ -79,6 +80,7 @@ Some videos are selected from [here](https://www.colossyan.com/).
   - [ ] Gradio/Colab Demo.
   - [x] Training code of each componments.
   - [x] Test code for video editing.
+  - [x] Test code for two videos driving.
   - [ ] Integrate audio driven methods for video editing.
   - [x] Integrate [GFPGAN](https://github.com/TencentARC/GFPGAN) for face enhancement.
 
@@ -134,9 +136,20 @@ python run_demo.py --s_path ./data/s.mp4 \
 ```
 
 #### Expression and pose driving
+One driving video:
 ```
 python run_demo.py --s_path ./data/s.mp4 \
  		--d_path ./data/d.mp4 \
+		--model_path ./checkpoints/dpe.pt \
+		--face both \
+		--output_folder ./res
+```
+
+Two driving videos:
+```
+python run_demo_two.py --s_path ./data/s.mp4 \
+ 		--pose_path ./data/pose.mp4 \
+        --exp_path ./data/exp.mp4 \
 		--model_path ./checkpoints/dpe.pt \
 		--face both \
 		--output_folder ./res
