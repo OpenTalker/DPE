@@ -81,13 +81,13 @@ class Trainer(nn.Module):
         vgg_loss += self.criterion_vgg(fake_exp_poseA2B, img_source).mean()
         vgg_loss_mid = self.criterion_vgg(fake_poseB2A, fake_expA2B).mean()*2
 
-        rec_loss = self.criterion_vgg(fake_selfpose, img_target).mean()*2
+        rec_loss = self.criterion_vgg(fake_selfpose, img_source).mean()*2
         rec_loss += self.criterion_vgg(fake_selfexp, img_source).mean()*2
 
         l1_loss = F.l1_loss(fake_pose_expB2A, img_target)*2
         l1_loss += F.l1_loss(fake_exp_poseA2B, img_source)*2 + F.l1_loss(fake_poseB2A, fake_expA2B)
 
-        rec_loss += F.l1_loss(fake_selfpose, img_target)
+        rec_loss += F.l1_loss(fake_selfpose, img_source)
         rec_loss += F.l1_loss(fake_selfexp, img_source) 
 
 
