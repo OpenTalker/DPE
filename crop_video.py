@@ -64,7 +64,7 @@ def face_detect(image_size, full_frames, na):
         im = results[i]
         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         im = Image.fromarray(im)
-        im = im.resize((image_size, image_size),Image.ANTIALIAS)
+        im = im.resize((image_size, image_size),Image.LANCZOS)
         im.save(os.path.join(pp,str(i)+'.jpg'))
     res = []
     quad = []
