@@ -32,7 +32,7 @@
 ## 🔥 Demo
 
 - 🔥 Video editing: single source video & a driving video & a piece of audio.
-We tranfer pose through the video and transfer expression through the audio with the help of [SadTalker](https://github.com/OpenTalker/SadTalker).
+We transfer pose through the video and transfer expression through the audio with the help of [SadTalker](https://github.com/OpenTalker/SadTalker).
 
 | Source video   | Result  |
 |:--------------------:|:--------------------: |
@@ -41,7 +41,7 @@ We tranfer pose through the video and transfer expression through the audio with
 | <video  src="https://user-images.githubusercontent.com/34021717/235356229-92bab207-a769-4141-8869-0db4faad41b2.mp4" type="video/mp4"> </video> | <video  src="https://user-images.githubusercontent.com/34021717/235356249-398515ac-7afa-41cd-98b2-a3ed85ed9954.mp4" type="video/mp4"> </video> |
 	
 - 🔥 Video editing: single source image & a driving video & a piece of audio.
-We tranfer pose through the video and transfer expression through the audio with the help of [SadTalker](https://github.com/OpenTalker/SadTalker).
+We transfer pose through the video and transfer expression through the audio with the help of [SadTalker](https://github.com/OpenTalker/SadTalker).
 
 <video  src="https://user-images.githubusercontent.com/34021717/236397002-16a08a50-5dc7-4668-b831-c44d118d5337.mp4" type="video/mp4"> </video>
 <video  src="https://user-images.githubusercontent.com/34021717/236397030-2ad811b9-bf51-4e23-bfa8-7047bc7a9a40.mp4" type="video/mp4"> </video>
@@ -50,7 +50,7 @@ We tranfer pose through the video and transfer expression through the audio with
 
 
 - 🔥 Video editing: single source image & two driving videos.
-We tranfer pose through the first video and transfer expression through the second video.
+We transfer pose through the first video and transfer expression through the second video.
 Some videos are selected from [here](https://www.colossyan.com/).
 
 ![dpe](./docs/demo1_res.gif)
